@@ -1,0 +1,33 @@
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+body {
+  background: #111722;
+  color: #fff;
+  font: 600 14px/1.2 Inter, system-ui, sans-serif;
+}
+#games {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  gap: clamp(2px, .8vmin, 6px);
+}
+.row { display: flex; flex: 1 1 0; min-height: 0; gap: inherit; }
+.card {
+  position: relative; flex: 1 1 0; min-width: 0; overflow: hidden;
+  background: #253042; color: white; text-decoration: none; isolation: isolate;
+  border-radius: clamp(2px, 1.4vmin, 9px);
+}
+.card img, .card video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.card video { opacity: 0; pointer-events: none; }
+.card video.ready { opacity: 1; }
+.caption {
+  position: absolute; inset: auto 0 0; display: flex; gap: 5px; align-items: center;
+  justify-content: space-between; padding: 1.4em .65em .45em;
+  background: linear-gradient(transparent, rgba(7,10,16,.88)); opacity: 0;
+  font-size: clamp(10px, 4vmin, 16px); text-shadow: 0 1px 3px #000;
+  transition: opacity 100ms ease-out;
+}
+.caption span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card:hover .caption, .card:focus .caption, .card.no-poster .caption { opacity: 1; }
+.card:focus { outline: 3px solid #c9fd71; outline-offset: -3px; z-index: 1; }
+#status, noscript { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%); margin: 0; text-align: center; }
+#status a, noscript a { color: #d4f6a3; }
+@media (prefers-reduced-motion: reduce) { .caption { transition: none; } }

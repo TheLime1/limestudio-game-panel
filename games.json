@@ -1,0 +1,134 @@
+{
+  "playlist": [
+    "match_to_survive",
+    "spellstorm",
+    "legacy",
+    "retanks",
+    "splashout",
+    "blue_cell",
+    "fish_together",
+    "crunchy_planets",
+    "journey",
+    "roundbound",
+    "pivot",
+    "auto_bricks",
+    "2048_reborn",
+    "universmith",
+    "dopamine",
+    "auto_blocks"
+  ],
+  "games": [
+    {
+      "id": "match_to_survive",
+      "title": "Match To Survive 🧍",
+      "url": "https://sbox.game/limestudio/match_to_survive",
+      "poster": "media/match_to_survive.webp",
+      "video": "media/match_to_survive.webm"
+    },
+    {
+      "id": "spellstorm",
+      "title": "Spellstorm",
+      "url": "https://sbox.game/limestudio/spellstorm",
+      "poster": "media/spellstorm.webp",
+      "video": "media/spellstorm.webm"
+    },
+    {
+      "id": "legacy",
+      "title": "Legacy: ETERNAL",
+      "url": "https://sbox.game/limestudio/legacy",
+      "poster": "media/legacy.webp",
+      "video": "media/legacy.webm"
+    },
+    {
+      "id": "retanks",
+      "title": "REtanks (BETA)",
+      "url": "https://sbox.game/limestudio/retanks",
+      "poster": "media/retanks.webp",
+      "video": "media/retanks.webm"
+    },
+    {
+      "id": "splashout",
+      "title": "Splashout",
+      "url": "https://sbox.game/limestudio/splashout",
+      "poster": "media/splashout.webp",
+      "video": "media/splashout.webm"
+    },
+    {
+      "id": "blue_cell",
+      "title": "Blue Cell",
+      "url": "https://sbox.game/limestudio/blue_cell",
+      "poster": "media/blue_cell.webp",
+      "video": "media/blue_cell.webm"
+    },
+    {
+      "id": "fish_together",
+      "title": "Fish Together",
+      "url": "https://sbox.game/limestudio/fish_together",
+      "poster": "media/fish_together.webp",
+      "video": "media/fish_together.webm"
+    },
+    {
+      "id": "crunchy_planets",
+      "title": "Crunchy Planets",
+      "url": "https://sbox.game/limestudio/crunchy_planets",
+      "poster": "media/crunchy_planets.webp",
+      "video": "media/crunchy_planets.webm"
+    },
+    {
+      "id": "journey",
+      "title": "Journey",
+      "url": "https://sbox.game/limestudio/journey",
+      "poster": "media/journey.webp",
+      "video": "media/journey.webm"
+    },
+    {
+      "id": "roundbound",
+      "title": "Roundbound",
+      "url": "https://sbox.game/limestudio/roundbound",
+      "poster": "media/roundbound.webp",
+      "video": "media/roundbound.webm"
+    },
+    {
+      "id": "pivot",
+      "title": "PIVOT",
+      "url": "https://sbox.game/limestudio/pivot",
+      "poster": "media/pivot.webp",
+      "video": "media/pivot.webm"
+    },
+    {
+      "id": "auto_bricks",
+      "title": "Auto Bricks n Balls",
+      "url": "https://sbox.game/limestudio/auto_bricks",
+      "poster": "media/auto_bricks.webp",
+      "video": "media/auto_bricks.webm"
+    },
+    {
+      "id": "2048_reborn",
+      "title": "2048 REBORN",
+      "url": "https://sbox.game/limestudio/2048_reborn",
+      "poster": "media/2048_reborn.webp",
+      "video": "media/2048_reborn.webm"
+    },
+    {
+      "id": "universmith",
+      "title": "UniverSmith",
+      "url": "https://sbox.game/limestudio/universmith",
+      "poster": "media/universmith.webp",
+      "video": "media/universmith.webm"
+    },
+    {
+      "id": "dopamine",
+      "title": "Dopamine",
+      "url": "https://sbox.game/limestudio/dopamine",
+      "poster": "media/dopamine.webp",
+      "video": "media/dopamine.webm"
+    },
+    {
+      "id": "auto_blocks",
+      "title": "Auto Blocks",
+      "url": "https://sbox.game/limestudio/auto_blocks",
+      "poster": "media/auto_blocks.webp",
+      "video": "media/auto_blocks.webm"
+    }
+  ]
+}
