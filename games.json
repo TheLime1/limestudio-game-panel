@@ -1,21 +1,9 @@
 {
   "playlist": [
-    "match_to_survive",
-    "spellstorm",
-    "legacy",
-    "retanks",
-    "splashout",
-    "blue_cell",
     "fish_together",
-    "crunchy_planets",
-    "journey",
-    "roundbound",
-    "pivot",
-    "auto_bricks",
-    "2048_reborn",
-    "universmith",
-    "dopamine",
-    "auto_blocks"
+    "blue_cell",
+    "retanks",
+    "spellstorm"
   ],
   "games": [
     {
@@ -30,7 +18,8 @@
       "title": "Spellstorm",
       "url": "https://sbox.game/limestudio/spellstorm",
       "poster": "media/spellstorm.webp",
-      "video": "media/spellstorm.webm"
+      "video": "media/spellstorm.webm",
+      "artwork": "media/artwork/spellstorm"
     },
     {
       "id": "legacy",
@@ -44,7 +33,8 @@
       "title": "REtanks (BETA)",
       "url": "https://sbox.game/limestudio/retanks",
       "poster": "media/retanks.webp",
-      "video": "media/retanks.webm"
+      "video": "media/retanks.webm",
+      "artwork": "media/artwork/retanks"
     },
     {
       "id": "splashout",
@@ -58,14 +48,16 @@
       "title": "Blue Cell",
       "url": "https://sbox.game/limestudio/blue_cell",
       "poster": "media/blue_cell.webp",
-      "video": "media/blue_cell.webm"
+      "video": "media/blue_cell.webm",
+      "artwork": "media/artwork/blue_cell"
     },
     {
       "id": "fish_together",
       "title": "Fish Together",
       "url": "https://sbox.game/limestudio/fish_together",
       "poster": "media/fish_together.webp",
-      "video": "media/fish_together.webm"
+      "video": "media/fish_together.webm",
+      "artwork": "media/artwork/fish_together"
     },
     {
       "id": "crunchy_planets",

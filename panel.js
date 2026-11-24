@@ -52,6 +52,20 @@
     play();
   }
 
+  function setPoster(card, game, shape, width) {
+    const poster = card.firstElementChild;
+    if (!game.artwork || card.classList.contains('no-variants')) return;
+    poster.sizes = Math.ceil(width) + 'px';
+    if (card.dataset.shape === shape) return;
+    card.dataset.shape = shape;
+    const max = shape === 'wide' ? 910 : 512;
+    const prefix = game.artwork + '/' + shape + '-';
+    const sources = [prefix + '256.webp 256w'];
+    if (shape === 'wide') sources.push(game.poster + ' 640w');
+    sources.push(prefix + max + '.webp ' + max + 'w');
+    poster.srcset = sources.join(', ');
+  }
+
   function makeCard(game) {
     const card = document.createElement('a');
     card.className = 'card';
@@ -59,8 +73,16 @@
     card.setAttribute('aria-label', game.title);
     const poster = new Image();
     poster.alt = '';
-    poster.onerror = () => card.classList.add('no-poster');
-    poster.src = game.poster;
+    poster.onerror = () => {
+      if (poster.hasAttribute('srcset')) {
+        card.classList.add('no-variants');
+        poster.removeAttribute('srcset');
+        poster.src = game.poster;
+      } else {
+        card.classList.add('no-poster');
+      }
+    };
+    if (!game.artwork) poster.src = game.poster;
     const caption = document.createElement('span');
     caption.className = 'caption';
     caption.setAttribute('aria-hidden', 'true');
@@ -78,45 +100,65 @@
     return card;
   }
 
-  function chooseRows(count) {
-    if (layout === 'strip') return [count];
+  const shapes = [
+    {name: 'wide', ratio: 16 / 9},
+    {name: 'square', ratio: 1},
+    {name: 'tall', ratio: 9 / 16}
+  ];
+
+  function measure(rows, gap) {
+    const height = Math.max(1, (panel.clientHeight - gap * (rows.length - 1)) / rows.length);
+    const slots = [];
+    let score = 0;
+    for (const columns of rows) {
+      const width = Math.max(1, (panel.clientWidth - gap * (columns - 1)) / columns);
+      const ratio = width / height;
+      for (let i = 0; i < columns; i++) {
+        const game = games[slots.length];
+        const available = game.artwork ? shapes : [shapes[0]];
+        let fit = 0;
+        let shape;
+        for (const art of available) {
+          const retained = Math.min(ratio / art.ratio, art.ratio / ratio);
+          if (retained > fit) {
+            fit = retained;
+            shape = art.name;
+          }
+        }
+        score += fit;
+        slots.push({width, shape, columns});
+      }
+    }
+    return {rows, slots, score};
+  }
+
+  function fitPanel() {
+    const count = games.length;
+    if (!count) return;
     const grid = count <= 2 ? [count] : [2, count - 2];
-    if (layout === 'grid') return grid;
-    const candidates = [[count], grid, Array(count).fill(1)];
+    const candidates = layout === 'grid' ? [grid] : layout === 'strip'
+      ? [[count]] : [grid, [count], Array(count).fill(1)];
     const gap = parseFloat(getComputedStyle(panel).gap) || 0;
-    // Pick the packing that crops the least 16:9 artwork across all cards.
-    const score = rows => {
-      const height = Math.max(1, (panel.clientHeight - gap * (rows.length - 1)) / rows.length);
-      return rows.reduce((total, cols) => {
-        const width = Math.max(1, (panel.clientWidth - gap * (cols - 1)) / cols);
-        const ratio = (width / height) / (16 / 9);
-        return total + cols * Math.min(ratio, 1 / ratio);
-      }, 0);
-    };
-    return candidates.reduce((best, rows) => score(rows) > score(best) ? rows : best);
+    const best = candidates.map(rows => measure(rows, gap))
+      .reduce((a, b) => b.score > a.score ? b : a);
+    const tracks = Math.max(...best.rows);
+    panel.style.gridTemplateColumns = 'repeat(' + tracks + ', minmax(0, 1fr))';
+    panel.style.gridTemplateRows = 'repeat(' + best.rows.length + ', minmax(0, 1fr))';
+    best.slots.forEach((slot, index) => {
+      const card = panel.children[index];
+      card.style.gridColumn = 'span ' + (tracks / slot.columns);
+      setPoster(card, games[index], slot.shape, slot.width);
+    });
   }
 
   function render() {
-    if (!games.length) {
+    const signature = JSON.stringify(games);
+    if (signature !== rendered) {
+      rendered = signature;
       stopPreview();
-      panel.replaceChildren();
-      rendered = '';
-      return;
+      panel.replaceChildren(...games.map(makeCard));
     }
-    const rows = chooseRows(games.length);
-    const signature = JSON.stringify([games, rows]);
-    if (signature === rendered) return;
-    rendered = signature;
-    stopPreview();
-    const fragment = document.createDocumentFragment();
-    let index = 0;
-    for (const columns of rows) {
-      const row = document.createElement('div');
-      row.className = 'row';
-      for (let col = 0; col < columns; col++) row.append(makeCard(games[index++]));
-      fragment.append(row);
-    }
-    panel.replaceChildren(fragment);
+    fitPanel();
   }
 
   async function refresh() {
@@ -148,7 +190,11 @@
     } finally { loading = false; }
   }
 
-  window.addEventListener('resize', render);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(fitPanel).observe(panel);
+  } else {
+    window.addEventListener('resize', fitPanel);
+  }
   window.addEventListener('pagehide', stopPreview);
   reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) stopPreview(); });
   document.addEventListener('visibilitychange', () => document.hidden ? stopPreview() : refresh());

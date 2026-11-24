@@ -6,17 +6,19 @@ body {
   font: 600 14px/1.2 Inter, system-ui, sans-serif;
 }
 #games {
-  width: 100%; height: 100%; display: flex; flex-direction: column;
+  width: 100%; height: 100%; display: grid;
   gap: clamp(2px, .8vmin, 6px);
 }
-.row { display: flex; flex: 1 1 0; min-height: 0; gap: inherit; }
 .card {
-  position: relative; flex: 1 1 0; min-width: 0; overflow: hidden;
+  position: relative; min-width: 0; min-height: 0; overflow: hidden;
   background: #253042; color: white; text-decoration: none; isolation: isolate;
   border-radius: clamp(2px, 1.4vmin, 9px);
 }
 .card img, .card video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .card video { opacity: 0; pointer-events: none; }
+.card[data-shape="square"] video, .card[data-shape="tall"] video {
+  object-fit: contain; background: rgba(7, 10, 16, .78);
+}
 .card video.ready { opacity: 1; }
 .caption {
   position: absolute; inset: auto 0 0; display: flex; gap: 5px; align-items: center;
